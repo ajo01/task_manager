@@ -18,17 +18,15 @@ MongoClient.connect(url, { useNewUrlParser:true, useUnifiedTopology: true }, (er
  
   const db = client.db(dbName);
 
-    updatePromise = db.collection('users').updateOne({
-        _id: new ObjectID('6077ed317e77200514a6ae95')
-    }, {
-        $inc: {
-            age:5
-        }
+    updatePromise = db.collection('users').deleteMany({
+        age:19
     }).then((result) => {
         console.log(result)
     }).catch((error) => {
         console.log(error)
     })
+
+
 })
  
 
