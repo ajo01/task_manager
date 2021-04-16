@@ -12,62 +12,34 @@ const {MongoClient, ObjectID} = require('mongodb')
 const url = "mongodb://127.0.0.1:27017";
 const dbName = "task-manager";
 
-const id = new ObjectID()
-console.log(id)
-console.log(id.getTimestamp())
  
 MongoClient.connect(url, { useNewUrlParser:true, useUnifiedTopology: true }, (err, client) => {
   assert.equal(null, err);
-  console.log("Connected successfully to server");
  
   const db = client.db(dbName);
-  db.collection('users').insertOne({
-      _id: id,
-      name:'Victor',
-      age: 31
-  }, (err, result) => {
-      if (err) {
-          return console.log('unable to insert user')
-      }
-      console.log(result.ops)
+
+//   db.collection('users').findOne({_id: ObjectID('6077ed317e77200514a6ae95')},(error, user) => {
+//         if (error) 
+//             return console.log('unable to fetch')
+
+//         console.log(user)
+//     })
+
+    // db.collection('users').find({age:20}).toArray((error, users) => {
+    //     console.log(users)
+    // })
+
+    // db.collection('users').find({age:20}).count((error, count) => {
+    //     console.log(count)
+    // })
+
+    db.collection('tasks').findOne({_id: ObjectID("6077f1d0bad700053666ce8f")},(error, tasks) => {
+        console.log(tasks)
     })
 
-
-
-//   db.collection('users').insertMany([
-//       {
-//         name:'Andrew',
-//         age: 27
-//       },
-//       {
-//         name:'May',
-//         age: 19
-//       }
-//   ], (error, result)=> {
-    // if (error) {
-    //     return console.log('Unable to insert users')
-    // }
-    // console.log(result.ops)
-//   })
-
-
-//     db.collection('tasks').insertMany([
-//         {
-//             description:'HW1',
-//             completed: true
-//         },
-//         {
-//             description:'PA2',
-//             completed: false
-//         }
-
-// ], (error, result)=> {
-//     if (error) {
-//         return console.log('Unable to insert users')
-//     }
-//     console.log(result.ops)
-// })
-
+    db.collection('tasks').find({completed: false}).toArray((error, uncompleted) => {
+        console.log(uncompleted)
+    })
 })
  
 
