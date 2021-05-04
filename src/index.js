@@ -32,5 +32,3 @@ const myFunction = async () => {
     const token = jwt.sign({ _id: 'abc123' }, 'course')
     console.log(token)
 }
-
-myFunction()
