@@ -5,7 +5,16 @@ const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 
 const app = express()
-const port = process.env.PORT|| 3000
+const port = process.env.PORT || 3000
+
+// app.use((req, res, next)=>{
+//     if(req.method === 'GET' || req.method === 'POST'||req.method === 'PATCH'||req.method === 'DELETE') {
+//         res.status(503).send()
+//     } else {
+//         next()
+//     }
+
+// })
 
 app.use(express.json())
 app.use(userRouter)
@@ -20,7 +29,7 @@ app.listen(port, () => {
 const jwt = require('jsonwebtoken')
 
 const myFunction = async () => {
-    const token = jwt.sign({_id:'abc123'},'newcourse')
+    const token = jwt.sign({ _id: 'abc123' }, 'course')
     console.log(token)
 }
 

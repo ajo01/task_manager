@@ -5,26 +5,26 @@ const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
     name: {
-        type:String,
+        type: String,
         required: true,
-        trim:true
+        trim: true
     },
     email: {
-        type:String,
-        required:true,
-        unique:true,
-        trim:true,
-        lowercase:true,
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
         validate(value) {
             if (!validator.isEmail(value))
                 throw new Error('invalid email')
         }
     },
-    password:{
-        type:String,
-        required:true,
-        minlength:7,
-        trim:true,
+    password: {
+        type: String,
+        required: true,
+        minlength: 7,
+        trim: true,
         validate(value) {
             if (value.toLowerCase().includes('password')) {
                 throw new Error('Password cannot be "password"')
@@ -32,25 +32,25 @@ const userSchema = new mongoose.Schema({
         }
     },
     age: {
-        type:Number,
-        default:0,
+        type: Number,
+        default: 0,
         validate(value) {
-            if (value < 0) 
+            if (value < 0)
                 throw new Error('age must be positive number')
         }
     },
     tokens: [{
         token: {
-            type:String,
-            required:true
+            type: String,
+            required: true
         }
     }]
 })
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({_id: user.id.toString()},'secret')
-    user.tokens = user.tokens.concat({token})
+    const token = jwt.sign({ _id: user.id.toString() }, 'secret')
+    user.tokens = user.tokens.concat({ token })
     await user.save()
     return token
 }
