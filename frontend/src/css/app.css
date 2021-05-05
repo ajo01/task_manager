@@ -11,9 +11,15 @@ body{
     overflow:hidden;
 }
 
+
 .container{
-    max-width: 800px;
-    padding:10px;
+    position: absolute;
+    padding:20px;
+    width:80%;
+    left:10%;
+    top:10%;
+    border: 8px solid black;
+    border-radius: 10px;
 }
 
 .txtb{
